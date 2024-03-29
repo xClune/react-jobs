@@ -1,16 +1,40 @@
 import { useState} from 'react'
+import { useNavigate } from 'react-router-dom';
 
-const AddJobPage = () => {
+const AddJobPage = ({addJobSubmit}) => {
 
     const [title, setTitle] = useState('');
-    const [type, setType] = useState('');
+    const [type, setType] = useState('Full-Time');
     const [location, setLocation] = useState('');
-    const [description, setDescription] = useState('');
+    const [description, setDescription] = useState('Under $50K');
     const [salary, setSalary] = useState('');
     const [companyName, setCompanyName] = useState('');
     const [companyDescription, setCompanyDescription] = useState('');
     const [contactEmail, setContactEmail] = useState('');
     const [contactPhone, setContactPhone] = useState('');
+
+    const navigate = useNavigate();
+    
+    const submitForm = (e) => {
+        e.preventDefault();
+
+        const newJob = {
+            title,
+            type,
+            location,
+            description,
+            salary,
+            company: {
+                name: companyName,
+                description: companyDescription,
+                contactEmail,
+                contactPhone
+            },
+            
+        }
+        addJobSubmit(newJob);
+        return navigate('/jobs');
+    }
 
   return (
     <>
@@ -19,7 +43,7 @@ const AddJobPage = () => {
                 <div
                 className="bg-white px-6 py-8 mb-4 shadow-md rounded-md border m-4 md:m-0"
                 >
-                <form>
+                <form onSubmit={submitForm}>
                     <h2 className="text-3xl text-center font-semibold mb-6">Add Job</h2>
 
                     <div className="mb-4">
@@ -58,7 +82,7 @@ const AddJobPage = () => {
                     </div>
                     <div className="mb-4">
                     <label
-                        forHTML="description"
+                        htmlFor="description"
                         className="block text-gray-700 font-bold mb-2"
                         >Description</label
                     >
@@ -74,7 +98,7 @@ const AddJobPage = () => {
                     </div>
 
                     <div className="mb-4">
-                    <label forHTML="type" className="block text-gray-700 font-bold mb-2"
+                    <label htmlFor="type" className="block text-gray-700 font-bold mb-2"
                         >Salary</label
                     >
                     <select
@@ -118,7 +142,7 @@ const AddJobPage = () => {
                     <h3 className="text-2xl mb-5">Company Info</h3>
 
                     <div className="mb-4">
-                    <label forHTML="company" className="block text-gray-700 font-bold mb-2"
+                    <label htmlFor="company" className="block text-gray-700 font-bold mb-2"
                         >Company Name</label
                     >
                     <input
@@ -134,7 +158,7 @@ const AddJobPage = () => {
 
                     <div className="mb-4">
                     <label
-                        forHTML="company_description"
+                        htmlFor="company_description"
                         className="block text-gray-700 font-bold mb-2"
                         >Company Description</label
                     >
@@ -151,7 +175,7 @@ const AddJobPage = () => {
 
                     <div className="mb-4">
                     <label
-                        forHTML="contact_email"
+                        htmlFor="contact_email"
                         className="block text-gray-700 font-bold mb-2"
                         >Contact Email</label
                     >
@@ -168,7 +192,7 @@ const AddJobPage = () => {
                     </div>
                     <div className="mb-4">
                     <label
-                        forHTML="contact_phone"
+                        htmlFor="contact_phone"
                         className="block text-gray-700 font-bold mb-2"
                         >Contact Phone</label
                     >
