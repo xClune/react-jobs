@@ -1,13 +1,15 @@
 import { useState} from 'react'
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+
 
 const AddJobPage = ({addJobSubmit}) => {
 
     const [title, setTitle] = useState('');
     const [type, setType] = useState('Full-Time');
     const [location, setLocation] = useState('');
-    const [description, setDescription] = useState('Under $50K');
-    const [salary, setSalary] = useState('');
+    const [description, setDescription] = useState('');
+    const [salary, setSalary] = useState('Under $50K');
     const [companyName, setCompanyName] = useState('');
     const [companyDescription, setCompanyDescription] = useState('');
     const [contactEmail, setContactEmail] = useState('');
@@ -33,6 +35,9 @@ const AddJobPage = ({addJobSubmit}) => {
             
         }
         addJobSubmit(newJob);
+
+        toast.success('Job added successfully');
+
         return navigate('/jobs');
     }
 
